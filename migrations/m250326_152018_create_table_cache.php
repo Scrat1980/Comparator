@@ -3,16 +3,9 @@
 use yii\base\NotSupportedException;
 use yii\db\Migration;
 
-/**
- * Handles the creation of table `{{%cache}}`.
- */
-class m250326_152018_create_cache_table extends Migration
+class m250326_152018_create_table_cache extends Migration
 {
-    /**
-     * {@inheritdoc}
-     * @throws NotSupportedException
-     */
-    public function safeUp()
+    public function safeUp(): void
     {
         $this->createTable('{{%cache}}', [
             'id' => $this->primaryKey(),
@@ -33,10 +26,7 @@ class m250326_152018_create_cache_table extends Migration
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function safeDown()
+    public function safeDown(): void
     {
         $this->dropTable('{{%cache}}');
         $this->dropTable('{{%cache_tags}}');
