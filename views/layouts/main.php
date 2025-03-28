@@ -56,7 +56,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ],
                 [
                     'label' => 'Request Replication',
-                    'url' => ['/request-replication/orders'],
+                    'url' => ['request-replication/orders'],
                     'visible' => true,
                     'active' => strpos(Yii::$app->requestedRoute, 'request-replication/orders') === 0,
                 ],

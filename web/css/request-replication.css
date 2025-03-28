@@ -1,0 +1,41 @@
+.request-email-parsing-query-view {
+    margin-top: 40px;
+}
+.request-email-parsing-query-detail {
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    background: #cccccc;
+    border: 1px solid #999999;
+}
+#js-textarea-request-query {
+    width: 100%;
+    margin-top: 10px;
+}
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.panel-heading a:hover, .panel-heading a:focus {
+    text-decoration: none;
+}
+
+.query-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.query-block-title {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 10px;
+}
+
+.query-block a {
+    width: 100%;
+    height: 100%;
+}
