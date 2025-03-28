@@ -2,12 +2,15 @@
 
 namespace app\records;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the ActiveQuery class for [[EmailParse]].
  *
  * @see EmailParse
  */
-class EmailParseQuery extends \yii\db\ActiveQuery
+class EmailParseQuery extends ActiveQuery
 {
     /**
      * @param $id
@@ -46,7 +49,7 @@ class EmailParseQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return EmailParse|array|null
+     * @return array|ActiveRecord|null
      */
     public function one($db = null)
     {
