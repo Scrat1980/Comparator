@@ -21,10 +21,14 @@ $emailParse = EmailParse::find()->last()->one();
 
 ?>
 <div class="email-parse-index">
-    <?= Nav::widget([
-        'options' => ['class' => 'nav-tabs'],
-        'items' => $navItems,
-    ]) ?>
+    <?php try {
+        echo Nav::widget([
+            'options' => ['class' => 'nav-tabs'],
+            'items' => $navItems,
+        ]);
+    } catch (Throwable $e) {
+        echo $e->getMessage();
+    } ?>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query' => $filter->search(),
@@ -54,7 +58,7 @@ $emailParse = EmailParse::find()->last()->one();
             ],
             [
                 'attribute' => 'created_at',
-                'label' => 'Обработано',
+                'label' => 'Processed on',
                 'format' => 'raw',
                 'value' => function ($record) {
                     return \Yii::$app->formatter->asDatetime($record->created_at, 'php:d-m-Y H:i:s');
@@ -73,13 +77,19 @@ $emailParse = EmailParse::find()->last()->one();
 </div>
 
 <?php $this->beginBlock('sidebar') ?>
-<div class="alert"><?= Html::a('Парсинг письма', '/email-parse/parse-letter', ['class' => 'btn btn-primary'])?></div>
-<div class="alert alert-warning">
-    <h4>Последний ЧИХ!</h4>
-    <p>
-        Последнее письмо было обработано <?= isset($emailParse) ? \Yii::$app->formatter->asDatetime
-        ($emailParse->created_at, 'php:d-m-Y H:i:s') : '' ?>
-    </p>
-</div>
+<!--<div class="alert">-->
+<!--    --><?php //= Html::a(
+//        'Парсинг письма',
+//        '/email-parse/parse-letter',
+//        ['class' => 'btn btn-primary']
+//    )?>
+<!--</div>-->
+<!--<div class="alert alert-warning">-->
+<!--    <h4>Последний ЧИХ!</h4>-->
+<!--    <p>-->
+<!--        Последнее письмо было обработано --><?php //= isset($emailParse) ? \Yii::$app->formatter->asDatetime
+//        ($emailParse->created_at, 'php:d-m-Y H:i:s') : '' ?>
+<!--    </p>-->
+<!--</div>-->
 <?= $this->render('_filter', compact('filter')) ?>
 <?php $this->endBlock() ?>

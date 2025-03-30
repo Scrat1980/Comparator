@@ -19,10 +19,7 @@ class EmailParseController extends Controller
 {
     public $layout = 'column2';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [

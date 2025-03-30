@@ -20,7 +20,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="<?= (Yii::$app->language === 'pt-BR') ? 'brazil' : 'russia' ?>">
+<body class="russia">
 <?php $this->beginBody() ?>
 <?= $content ?>
 <?php $this->endBody() ?>

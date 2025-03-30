@@ -22,7 +22,7 @@ use yii\web\View;
     <?= $form->field($filter, 'external_order_id') ?>
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::button('Сбросить', ['class' => 'btn btn-warning btn-md js-clear-search']) ?>
+<!--        --><?php //= Html::button('Сбросить', ['class' => 'btn btn-warning btn-md js-clear-search']) ?>
     </div>
     <?php ActiveForm::end() ?>
 </div>
