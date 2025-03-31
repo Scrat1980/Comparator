@@ -32,12 +32,12 @@ class RequestReplicationController extends Controller
     public function actionOrders(): string
     {
         /** @var/ RequestReplicationEditor $model */
-        $model = new RequestReplicationEditor();
+        $model = new RequestReplicationEditor(['scenario' => RequestReplicationEditor::SCENARIO_MASS_ORDERS]);
         $query = ['initialQuery' => '', 'queryProduct' => '', 'queryOrder' => ''];
 
         if (
             $model->load(Yii::$app->request->post())
-//            && $model->validate()
+            && $model->validate()
         ) {
             $query = $model->getRequestEmailParsing();
         }

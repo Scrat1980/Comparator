@@ -146,21 +146,21 @@ class OrderPackage extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp' => [
-                'class' => TimestampBehavior::class,
-                'attributes' => [
-                    self::EVENT_BEFORE_INSERT => 'created_at',
-                ],
-            ],
-            'events' => [
-                'class' => EventProxy::class,
-                'map' => [
-                    static::EVENT_SHIPMENT_SHIPPED,
-                    static::EVENT_SHIPMENT_ARRIVED_CUSTOMS,
-                    static::EVENT_SHIPMENT_DELIVERED,
-                    static::EVENT_CANCELED,
-                ],
-            ],
+//            'timestamp' => [
+//                'class' => TimestampBehavior::class,
+//                'attributes' => [
+//                    self::EVENT_BEFORE_INSERT => 'created_at',
+//                ],
+//            ],
+//            'events' => [
+//                'class' => EventProxy::class,
+//                'map' => [
+//                    static::EVENT_SHIPMENT_SHIPPED,
+//                    static::EVENT_SHIPMENT_ARRIVED_CUSTOMS,
+//                    static::EVENT_SHIPMENT_DELIVERED,
+//                    static::EVENT_CANCELED,
+//                ],
+//            ],
 //            'audit' => AuditBehavior::class,
         ];
     }

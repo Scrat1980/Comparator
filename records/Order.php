@@ -2,21 +2,6 @@
 
 namespace app\records;
 
-//use app\audit\AuditActiveRecordTrait;
-//use app\audit\AuditBehavior;
-//use app\helpers\DeliveryHelper;
-//use app\helpers\EventProxy;
-//use app\helpers\OrderHelper;
-//use app\helpers\PromocodeHelper;
-//use app\payment\FailedRefundingEvent;
-//use app\payment\inner\Gateway as InnerGateway;
-//use app\payment\SuccessfulRefundingEvent;
-//use app\referral\common\models\OrderAccrueBonuses;
-//use app\telegram\Events;
-//use app\telegram\TelegramQueueJob;
-//use app\web\editors\TransactionEditor;
-//use Shopfans\Api\UserApi as ShopfansApi;
-//use Shopfans\Api\UserApiException;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\behaviors\TimestampBehavior;
@@ -167,34 +152,34 @@ class Order extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp' => [
-                'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => false,
-            ],
-            'events' => [
-                'class' => EventProxy::class,
-                'map' => [
-                    static::EVENT_REDEEMED,
-                    static::EVENT_AWAITING_ARRIVING,
-                    self::EVENT_NEW_ORDER,
-                    self::EVENT_ORDER_PAYMENT_SUCCESS,
-                    self::EVENT_ORDER_PAYMENT_FAILED,
-                    self::EVENT_ORDER_PAYMENT_SUCCESS_GA,
-                ],
-            ],
-            'audit' => [
-                'class' => AuditBehavior::class,
-                'operations' => [
-                    static::EVENT_AFTER_INSERT  => 'Created',
-                    static::EVENT_AFTER_UPDATE => 'Updated',
-                    static::EVENT_REDEEMED => 'Redeemed',
-                    static::EVENT_AWAITING_ARRIVING => 'Awaiting Arriving',
-                    static::EVENT_ORDER_PAYMENT_SUCCESS => 'Paid',
-                    static::EVENT_ORDER_PAYMENT_FAILED => 'Payment Failed',
-                    static::EVENT_AFTER_DELETE => 'Deleted',
-                ],
-            ],
+//            'timestamp' => [
+//                'class' => TimestampBehavior::class,
+//                'createdAtAttribute' => 'created_at',
+//                'updatedAtAttribute' => false,
+//            ],
+//            'events' => [
+//                'class' => EventProxy::class,
+//                'map' => [
+//                    static::EVENT_REDEEMED,
+//                    static::EVENT_AWAITING_ARRIVING,
+//                    self::EVENT_NEW_ORDER,
+//                    self::EVENT_ORDER_PAYMENT_SUCCESS,
+//                    self::EVENT_ORDER_PAYMENT_FAILED,
+//                    self::EVENT_ORDER_PAYMENT_SUCCESS_GA,
+//                ],
+//            ],
+//            'audit' => [
+//                'class' => AuditBehavior::class,
+//                'operations' => [
+//                    static::EVENT_AFTER_INSERT  => 'Created',
+//                    static::EVENT_AFTER_UPDATE => 'Updated',
+//                    static::EVENT_REDEEMED => 'Redeemed',
+//                    static::EVENT_AWAITING_ARRIVING => 'Awaiting Arriving',
+//                    static::EVENT_ORDER_PAYMENT_SUCCESS => 'Paid',
+//                    static::EVENT_ORDER_PAYMENT_FAILED => 'Payment Failed',
+//                    static::EVENT_AFTER_DELETE => 'Deleted',
+//                ],
+//            ],
         ];
     }
 

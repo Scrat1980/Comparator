@@ -20,10 +20,13 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="russia">
-<?php $this->beginBody() ?>
-<?= $content ?>
-<?php $this->endBody() ?>
+
+<body class="d-flex flex-column h-100">
+    <?php $this->beginBody() ?>
+        <div class="flex-shrink-0">
+            <?= $content ?>
+        </div>
+    <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

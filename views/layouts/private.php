@@ -12,7 +12,7 @@ use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use app\records\User;
 
-/** @var \app\records\User $user */
+/** @var User $user */
 $user = Yii::$app->user->identity;
 
 $this->registerCss(<<<CSS

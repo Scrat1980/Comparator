@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-//use app\records\Customer;
+use app\records\Customer;
 use app\records\MassOrderDiscount;
 use app\records\MassOrderProduct;
 use app\records\EmailParse;
@@ -10,6 +10,7 @@ use app\records\Order;
 use app\records\OrderPackage;
 //use app\records\OrderPackageProduct;
 //use app\records\OrderPayment;
+use app\records\OrderPackageProduct;
 use app\records\OrderProduct;
 //use app\records\Payment;
 //use app\records\Product;
@@ -18,6 +19,8 @@ use app\records\OrderProduct;
 //use app\records\Brand;
 //use app\records\MarketSize;
 //use app\records\SplitPackage;
+use app\records\Product;
+use app\records\ProductVariant;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -45,20 +48,17 @@ class RequestReplicationEditor extends Model
     const MARKET_SIZE_ID = 16;
     const ENTITY_IDS_SEPARATOR = ',';
 
-    /**
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
-            ['entity_ids', 'string'],
-            ['entity_ids', 'required'],
-            ['init_flag', 'boolean'],
-
-            // scenario split_package
-            ['split_package_id', 'required'],
-            ['split_package_id', 'exist', 'targetClass' => SplitPackage::class, 'targetAttribute' => 'id'],
-            [['prepare_order_id_list', 'prepare_sql_queries'], 'boolean'],
+//            ['entity_ids', 'string'],
+//            ['entity_ids', 'required'],
+//            ['init_flag', 'boolean'],
+//
+//            // scenario split_package
+//            ['split_package_id', 'required'],
+//            ['split_package_id', 'exist', 'targetClass' => SplitPackage::class, 'targetAttribute' => 'id'],
+//            [['prepare_order_id_list', 'prepare_sql_queries'], 'boolean'],
 
             ['mass_order_discount_id', 'required'],
             ['mass_order_discount_id', 'integer'],
@@ -67,12 +67,16 @@ class RequestReplicationEditor extends Model
         ];
     }
 
-    public function scenarios()
+    public function scenarios(): array
     {
         return [
-            self::SCENARIO_DEFAULT => ['entity_ids', 'init_flag'],
-            self::SCENARIO_SPLIT_PACKAGE => ['split_package_id', 'prepare_order_id_list', 'prepare_sql_queries'],
-            self::SCENARIO_MASS_ORDERS => ['mass_order_discount_id', 'show_order_ids', 'add_order_queries'],
+//            self::SCENARIO_DEFAULT => ['entity_ids', 'init_flag'],
+//            self::SCENARIO_SPLIT_PACKAGE => ['split_package_id', 'prepare_order_id_list', 'prepare_sql_queries'],
+            self::SCENARIO_MASS_ORDERS => [
+                'mass_order_discount_id',
+                'show_order_ids',
+                'add_order_queries'
+            ],
         ];
     }
 
@@ -94,15 +98,9 @@ class RequestReplicationEditor extends Model
      */
     public function getRequestEmailParsing(): array
     {
-        $orderIds = explode(self::ENTITY_IDS_SEPARATOR, $this->entity_ids);
+        preg_match('/\d+?/U', $this->mass_order_discount_id, $orderIds);
+//        $orderIds = explode(self::ENTITY_IDS_SEPARATOR, $this->mass_order_discount_id);
         $orderIds = array_unique($orderIds);
-
-        echo '<pre>';
-        var_dump(
-            $orderIds
-        );
-        echo '</pre>';
-        die;
 
         $queryProduct = $this->getProductData($orderIds);
         $queryOrder = $this->getOrderData($orderIds);
@@ -144,16 +142,16 @@ class RequestReplicationEditor extends Model
                 $orderData = $this->getOrder($orderId);
                 if ($orderData) {
                     $customerData = $this->getCustomer($orderData['orderCustomerId']);
-                    $paymentData = $this->getPayments($orderId);
-                    $orderPaymentData = $this->getOrderPaymentLink($orderId);
+//                    $paymentData = $this->getPayments($orderId);
+//                    $orderPaymentData = $this->getOrderPaymentLink($orderId);
                     $orderPackageData = $this->getOrderPackage($orderData['orderPackageId']);
                     $orderProductData = $this->getOrderProduct($orderData['orderProductId']);
                     $orderPackageProductData = $this->getOrderPackageProduct($orderData['orderPackageId']);
 
-                    $queryOrder[] = $paymentData['query'];
+//                    $queryOrder[] = $paymentData['query'];
                     $queryOrder[] = $orderData['query'];
                     $queryOrder[] = $customerData['query'];
-                    $queryOrder[] = $orderPaymentData['query'];
+//                    $queryOrder[] = $orderPaymentData['query'];
                     $queryOrder[] = $orderPackageData['query'];
                     $queryOrder[] = $orderProductData['query'];
                     $queryOrder[] = $orderPackageProductData['query'];
@@ -223,6 +221,7 @@ class RequestReplicationEditor extends Model
     private function getOrder($orderId): bool|array
     {
         $order = Order::findOne($orderId);
+
         if ($order) {
             $orderPackageId = $order->getOrderPackages()->select('op.id')->asArray()->all();
             $orderProductId = $order->getOrderProducts()->select('order_product.id')->asArray()->all();

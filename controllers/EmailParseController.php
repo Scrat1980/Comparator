@@ -45,18 +45,6 @@ class EmailParseController extends Controller
         ];
     }
 
-    private function getConfigMacys()
-    {
-        return [
-            'from'    => 'CustomerService@oes.macys.com',
-            'to'      => 'imaplib@shopfans.ru',
-            'date'    => 'Thu, 27 Feb 2020 14:52:40 +0300',
-            'subject' => 'test_message',
-            'body'    => '',
-            'raw'     => '',
-        ];
-    }
-
     public function actionIndex(): string
     {
         return $this->render('index', [
@@ -315,4 +303,17 @@ class EmailParseController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    private function getConfigMacys()
+    {
+        return [
+            'from'    => 'CustomerService@oes.macys.com',
+            'to'      => 'imaplib@shopfans.ru',
+            'date'    => 'Thu, 27 Feb 2020 14:52:40 +0300',
+            'subject' => 'test_message',
+            'body'    => '',
+            'raw'     => '',
+        ];
+    }
+
 }

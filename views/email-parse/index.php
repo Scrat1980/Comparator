@@ -2,7 +2,7 @@
 /**
  * @var View $this
  * @var EmailParseFilter $filter
- * @var $navItems array[]
+ * @var array[] $navItems
  */
 
 use app\records\EmailParse;
